@@ -38,6 +38,8 @@ app.use(session(sessionParms));
 const passport = require("passport");
 const passportInit = require("./passport/passportInit");
 
+const secretWordRouter = require("./routes/secretWord");
+
 passportInit();
 app.use(passport.initialize());
 app.use(passport.session());
