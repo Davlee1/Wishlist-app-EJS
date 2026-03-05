@@ -1,0 +1,28 @@
+const Wishlist = require("../models/wishlist");
+const parseVErr = require("../utils/parseValidationErrs");
+
+const getAllItems = async (req, res) => {
+	const items = await Wishlist.find({ createdBy: req.user._id });
+	res.render("itemsPrivate", { items });
+};
+
+const showNewForm = (req, res) => {
+	res.render("Item", { item: null });
+};
+
+const createItem = async (req, res, next) => {}
+
+const showEditForm = async (req, res, next) => {}
+
+const updateItem = async (req, res, next) => {}
+
+const deleteItem = async (req, res, next) => {}
+
+module.exports = {
+  getAllItems,
+  showNewForm,
+  createItem,
+  showEditForm,
+  updateItem,
+  deleteItem,
+};

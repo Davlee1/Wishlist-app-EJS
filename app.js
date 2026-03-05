@@ -82,6 +82,8 @@ app.use("/sessions", require("./routes/sessionRoutes"));
 const auth = require("./middleware/auth");
 const secretWordRouter = require("./routes/secretWord");
 app.use("/secretWord", auth, secretWordRouter);
+const wishlistRouter = require("./routes/wishlist");
+app.use("/wishlist", auth, wishlistRouter);
 
 /* ---------------- Errors ---------------- */
 app.use((req, res) => {
