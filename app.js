@@ -8,6 +8,9 @@ const helmet = require("helmet");
 const xssClean = require("xss-clean");
 const rateLimit = require("express-rate-limit");
 const cookieParser = require("cookie-parser");
+const path = require('path');
+
+
 const csrf = require("host-csrf");
 
 const url = process.env.MONGO_URI;
@@ -71,19 +74,24 @@ app.use((req, res, next) => {
   next();
 });
 
+/*------------------Static Files------------------*/
+app.use(express.static(path.join(__dirname, 'public')));
+
 /* ---------------- Routes ---------------- */
 app.set("view engine", "ejs");
 app.get("/", (req, res) => {
   res.render("index");
 });
-
-app.use("/sessions", require("./routes/sessionRoutes"));
-
 const auth = require("./middleware/auth");
+
+const sessionsRouter = require("./routes/secretWord");
+app.use("/sessions", sessionsRouter);
+
 const secretWordRouter = require("./routes/secretWord");
 app.use("/secretWord", auth, secretWordRouter);
+
 const wishlistRouter = require("./routes/wishlist");
-app.use("/wishlist", auth, wishlistRouter);
+app.use("/wishlist", wishlistRouter);
 
 /* ---------------- Errors ---------------- */
 app.use((req, res) => {
@@ -95,7 +103,7 @@ app.use((err, req, res, next) => {
   console.log(err);
 });
 
-/* ---------------- START SERVER ---------------- */
+/* ---------------- Start Server ---------------- */
 const port = process.env.PORT || 3000;
 
 const start = async () => {
