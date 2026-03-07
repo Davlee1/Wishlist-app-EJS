@@ -3,7 +3,7 @@ const parseVErr = require("../utils/parseValidationErrs");
 
 const getAllItems = async (req, res) => {
   const items = await Wishlist.find({ createdBy: req.user._id });
-  res.render("wishlistPrivate", { items });
+  res.render("wishlist", { items });
 };
 
 const showNewForm = (req, res) => {
@@ -41,9 +41,39 @@ const showEditForm = async (req, res, next) => {
   res.render("item", { item });
 };
 
-const updateItem = async (req, res, next) => {};
+const updateItem = async (req, res, next) => {
+  try {
+    const item = await Wishlist.findOneAndUpdate(
+      { _id: req.params.id, createdBy: req.user._id },
+      req.body,
+      { new: true, runValidators: true },
+    );
 
-const deleteItem = async (req, res, next) => {};
+    if (!item) {
+      req.flash("error", "Item not found.");
+      return res.redirect("/wishlist");
+    }
+
+    req.flash("info", "Item updated.");
+    res.redirect("/wishlist");
+  } catch (e) {
+    if (e.name === "ValidationError") {
+      parseVErr(e, req);
+      const job = await Wishlist.findById(req.params.id);
+      return res.render("item", { item });
+    }
+    next(e);
+  }
+};
+
+const deleteItem = async (req, res, next) => {
+  await Wishlist.findOneAndDelete({
+    _id: req.params.id,
+    createdBy: req.user._id,
+  });
+  req.flash("info", "Item deleted.");
+  res.redirect("/wishlist");
+};
 
 const shareWishlist = async (req, res, next) => {
   const items = await Wishlist.find({ createdBy: req.params.id });
