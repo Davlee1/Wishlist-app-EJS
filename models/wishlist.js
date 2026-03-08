@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const WishlistSchema = new mongoose.Schema(
   {
-    item: {
+    name: {
       type: String,
       required: [true, "Please provide item name"],
       maxlength: 100,

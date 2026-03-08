@@ -3,7 +3,7 @@ const parseVErr = require("../utils/parseValidationErrs");
 
 const getAllItems = async (req, res) => {
   const items = await Wishlist.find({ createdBy: req.user._id });
-  res.render("wishlist", { items });
+  res.render("wishlist", { wishlist });
 };
 
 const showNewForm = (req, res) => {

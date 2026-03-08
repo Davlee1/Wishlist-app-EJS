@@ -1,6 +1,44 @@
 <%- include("partials/head.ejs") %>
 <%- include("partials/header.ejs") %>
 
+<h2>Wishist</h2>
 
+<a href="/wishlist/new">
+	<button type="button">Add Item</button>
+</a>
+
+<table border="1">
+	<tr>
+		<th>Name</th>
+        <th>Image</th>
+		<th>Link</th>
+		<th>Description</th>
+        <th>Priority (1 = most wanted, 5 = least important)</th>
+		<th colspan="2"></th>
+	</tr>
+
+	<% if (wishlist && wishlist.length) { %>
+		<% wishlist.forEach((item) => { %>
+			<tr>
+				<td><%= item.name %></td>
+				<td><%= item.imageURL %></td>
+                <td><%= item.link %></td>
+                <td><%= item.description %></td>
+				<td><%= item.priority %></td>
+				<td>
+					<a href="/wishlist/edit/<%= item._id %>">
+						<button type="button">Edit</button>
+					</a>
+				</td>
+				<td>
+					<form method="POST" action="/wishlist/delete/<%= item._id %>" style="display:inline;">
+						<input type="hidden" name="_csrf" value="<%= _csrf %>" />
+						<button>Delete</button>
+					</form>
+				</td>
+			</tr>
+		<% }) %>
+	<% } %>
+</table>
 
 <%- include("partials/footer.ejs") %>

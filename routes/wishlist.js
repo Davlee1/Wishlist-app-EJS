@@ -10,7 +10,7 @@ const {
   updateItem,
   deleteItem,
   shareWishlist
-} = require("../controllers/wishlist");
+} = require("../controllers/wishlist.js");
 
 
 //GET /wishlist (display all the items belonging to this user)
