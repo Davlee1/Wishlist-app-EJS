@@ -2,7 +2,7 @@ const Wishlist = require("../models/wishlist");
 const parseVErr = require("../utils/parseValidationErrs");
 
 const getAllItems = async (req, res) => {
-  const items = await Wishlist.find({ createdBy: req.user._id });
+  const wishlist = await Wishlist.find({ createdBy: req.user._id });
   res.render("wishlist", { wishlist });
 };
 
@@ -76,8 +76,8 @@ const deleteItem = async (req, res, next) => {
 };
 
 const shareWishlist = async (req, res, next) => {
-  const items = await Wishlist.find({ createdBy: req.params.id });
-  res.render("wishlistShare", { items });
+  const wishlist = await Wishlist.find({ createdBy: req.params.id });
+  res.render("wishlistShare", { wishlist });
 };
 
 module.exports = {
