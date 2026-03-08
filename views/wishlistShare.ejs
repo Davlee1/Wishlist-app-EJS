@@ -1,0 +1,29 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/header.ejs") %>
+
+<h2>Wishist</h2>
+
+<table border="1">
+	<tr>
+		<th>Name</th>
+        <th>Image</th>
+		<th>Link</th>
+		<th>Description</th>
+        <th>Priority (1 = most wanted, 5 = least important)</th>
+		<th colspan="2"></th>
+	</tr>
+
+	<% if (wishlist && wishlist.length) { %>
+		<% wishlist.forEach((item) => { %>
+			<tr>
+				<td><%= item.name %></td>
+				<td><%= item.imageURL %></td>
+                <td><%= item.link %></td>
+                <td><%= item.description %></td>
+				<td><%= item.priority %></td>
+			</tr>
+		<% }) %>
+	<% } %>
+</table>
+
+<%- include("partials/footer.ejs") %>
