@@ -59,7 +59,7 @@ const updateItem = async (req, res, next) => {
   } catch (e) {
     if (e.name === "ValidationError") {
       parseVErr(e, req);
-      const job = await Wishlist.findById(req.params.id);
+      const item = await Wishlist.findById(req.params.id);
       return res.render("item", { item });
     }
     next(e);

@@ -8,8 +8,7 @@ const helmet = require("helmet");
 const xssClean = require("xss-clean");
 const rateLimit = require("express-rate-limit");
 const cookieParser = require("cookie-parser");
-const path = require('path');
-
+const path = require("path");
 
 const csrf = require("host-csrf");
 
@@ -26,7 +25,6 @@ const limiter = rateLimit({
   max: 100,
 });
 app.use(limiter);
-
 
 /* ---------------- Body + Cookie Parseers ---------------- */
 app.use(require("body-parser").urlencoded({ extended: true }));
@@ -70,12 +68,12 @@ const csrfMiddleware = csrf.csrf();
 
 app.use(csrfMiddleware);
 app.use((req, res, next) => {
-  res.locals._csrf = csrf.getToken(req, res);
+  csrf.getToken(req, res);
   next();
 });
 
 /*------------------Static Files------------------*/
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
 /* ---------------- Routes ---------------- */
 app.set("view engine", "ejs");
@@ -84,7 +82,7 @@ app.get("/", (req, res) => {
 });
 const auth = require("./middleware/auth");
 
-const sessionsRouter = require("./routes/secretWord");
+const sessionsRouter = require("./routes/sessionRoutes");
 app.use("/sessions", sessionsRouter);
 
 const secretWordRouter = require("./routes/secretWord");
@@ -99,6 +97,9 @@ app.use((req, res) => {
 });
 
 app.use((err, req, res, next) => {
+  if (err && err.name === "CSRFError") {
+    return res.status(403).send("CSRF validation failed.");
+  }
   res.status(500).send(err.message);
   console.log(err);
 });
