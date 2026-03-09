@@ -23,7 +23,7 @@ const WishlistSchema = new mongoose.Schema(
     //1 = most wanted, 5 = least important
     priority: {
       type: Number,
-      enum: ["1", "2", "3", "4", "5"],
+      enum: [1, 2, 3, 4, 5],
       default: "5",
       
     },
