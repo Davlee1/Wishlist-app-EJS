@@ -199,6 +199,13 @@ td {
   right: 1%;
 }
 
+.icon{
+    
+  width: 25px;
+  height: auto;
+
+}
+
 .error {
   background: hsl(351, 100%, 76%);
   color: hsl(351, 100%, 28%);

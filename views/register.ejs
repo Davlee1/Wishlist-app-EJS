@@ -1,6 +1,6 @@
 <%- include("partials/head.ejs") %> <%- include("partials/header.ejs") %>
 <form method="POST">
-  <div class="center">
+  
     <input type="hidden" name="_csrf" value="<%= _csrf %>" />
     <div class="form-grid">
       <label class="form-label" name="name">Enter your name:</label>
@@ -21,6 +21,6 @@
         <button class="button-cancel" type="button">Cancel</button>
       </a>
     </div>
-  </div>
+  
 </form>
 <%- include("partials/footer.ejs") %>
