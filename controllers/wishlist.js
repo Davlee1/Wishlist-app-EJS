@@ -1,0 +1,98 @@
+const PublicLists = require("../models/publicLists");
+const Wishlist = require("../models/wishlist");
+const parseVErr = require("../utils/parseValidationErrs");
+
+const getAllItems = async (req, res) => {
+  const wishlist = await Wishlist.find({ createdBy: req.user._id });
+  const publish = await PublicLists.find({ name: req.user.name });
+  if (publish.length > 0) {
+    res.render("wishlist", { wishlist, publish });
+  } else {
+    res.render("wishlist", { wishlist, publish: null });
+  }
+};
+
+const showNewForm = (req, res) => {
+  res.render("item", { item: null });
+};
+
+const createItem = async (req, res, next) => {
+  try {
+    await Wishlist.create({
+      ...req.body,
+      createdBy: req.user._id,
+    });
+    req.flash("info", "item created.");
+    res.redirect("/wishlist");
+  } catch (e) {
+    if (e.name === "ValidationError") {
+      parseVErr(e, req);
+      return res.render("item", { item: null });
+    }
+    next(e);
+  }
+};
+
+const showEditForm = async (req, res, next) => {
+  const item = await Wishlist.findOne({
+    _id: req.params.id,
+    createdBy: req.user._id,
+  });
+
+  if (!item) {
+    req.flash("error", "item not found.");
+    return res.redirect("/items");
+  }
+
+  res.render("item", { item });
+};
+
+const updateItem = async (req, res, next) => {
+  try {
+    const item = await Wishlist.findOneAndUpdate(
+      { _id: req.params.id, createdBy: req.user._id },
+      req.body,
+      { new: true, runValidators: true },
+    );
+
+    if (!item) {
+      req.flash("error", "Item not found.");
+      return res.redirect("/wishlist");
+    }
+
+    req.flash("info", "Item updated.");
+    res.redirect("/wishlist");
+  } catch (e) {
+    if (e.name === "ValidationError") {
+      parseVErr(e, req);
+      const item = await Wishlist.findById(req.params.id);
+      return res.render("item", { item });
+    }
+    next(e);
+  }
+};
+
+const deleteItem = async (req, res, next) => {
+  await Wishlist.findOneAndDelete({
+    _id: req.params.id,
+    createdBy: req.user._id,
+  });
+  req.flash("info", "Item deleted.");
+  res.redirect("/wishlist");
+};
+
+const shareWishlist = async (req, res, next) => {
+  const wishlist = await Wishlist.find({ createdBy: req.params.id });
+  const name = req.params.name;
+  res.render("wishlistShare", { wishlist, name });
+};
+
+module.exports = {
+  getAllItems,
+  showNewForm,
+  createItem,
+  showEditForm,
+  updateItem,
+  deleteItem,
+  shareWishlist,
+};
