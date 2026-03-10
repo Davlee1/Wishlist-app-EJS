@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Cal+Sans&family=Faculty+Glyphic&family=K2D:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Major+Mono+Display&display=swap");
 html {
-  background: linear-gradient(180deg, hsl(254 45% 10%),hsl(254 45% 20%));
+  background: linear-gradient(180deg, hsl(254 45% 10%), hsl(254 45% 20%));
   color: hsl(255 51.7% 94.5%);
   font-family: "K2D", sans-serif;
   scroll-behavior: smooth;
@@ -18,7 +18,7 @@ html {
 }
 
 .center {
-  background: hsla(254, 46%, 25%,70%);
+  background: hsla(254, 46%, 25%, 70%);
   border-radius: 10px;
   margin: 30px auto 10px;
   padding: 5px;
@@ -30,7 +30,7 @@ html {
 
 /*-------Buttons-------*/
 .button {
-font-size: medium;
+  font-size: medium;
   background: hsl(254, 100%, 88%);
   color: hsl(254 45% 11%);
   border-radius: 10px;
@@ -93,7 +93,7 @@ font-size: medium;
   color: hsl(254 45% 11%);
   border-radius: 10px;
   padding: 10px;
-  margin: 10px 10px 0px;
+  margin: 0px 10px 10px;
   text-decoration: none;
   border: none;
 }
@@ -108,7 +108,7 @@ font-size: medium;
   color: hsl(254 45% 11%);
   border-radius: 10px;
   padding: 10px;
-  margin: 10px 10px 0px;
+  margin: 0px 10px 10px;
   text-decoration: none;
   border: none;
 }
@@ -181,8 +181,8 @@ td {
   /*background: hsl(117, 100%, 79%);*/
   display: flex;
   flex-direction: row;
-  margin: auto;
-  padding: 10px;
+  margin: 0px auto 0px;
+  padding: 2px;
   justify-content: center;
   text-align: center;
 }
@@ -199,11 +199,14 @@ td {
   right: 1%;
 }
 
-.icon{
-    
+.icon {
   width: 25px;
   height: auto;
+}
 
+.line {
+  border-bottom: 5px solid hsl(254, 46%, 10%);
+  padding: 5px 0px 20px;
 }
 
 .error {

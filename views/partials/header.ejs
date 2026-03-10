@@ -3,8 +3,10 @@
 
 <% if (user) { %>
    <div class="corner-block">
-    <p>Hello <%= user.name %>!</p>
-    
+    <p class="line">Hello <%= user.name %>!</p>
+      
+        
+      
       <form method="POST" action="/sessions/logoff">
         <input type="hidden" name="_csrf" value="<%= _csrf %>" />
           <div class="row">
