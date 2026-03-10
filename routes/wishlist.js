@@ -32,6 +32,6 @@ router.post("/update/:id", auth, updateItem);
 router.post("/delete/:id", auth, deleteItem);
 
 //GET /wishlist/share/:id (Publicly share wishlist)
-router.get("/share/:id", shareWishlist);
+router.get("/share/:name/:id", shareWishlist);
 
 module.exports = router;

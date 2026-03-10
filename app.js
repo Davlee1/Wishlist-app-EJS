@@ -75,11 +75,12 @@ app.use((req, res, next) => {
 /*------------------Static Files------------------*/
 app.use(express.static(path.join(__dirname, "public")));
 
-/* ---------------- Routes ---------------- */
+/* ---------------- Routes + EJS ---------------- */
 app.set("view engine", "ejs");
 app.get("/", (req, res) => {
   res.render("index");
 });
+
 const auth = require("./middleware/auth");
 
 const sessionsRouter = require("./routes/sessionRoutes");
@@ -90,6 +91,11 @@ app.use("/secretWord", auth, secretWordRouter);
 
 const wishlistRouter = require("./routes/wishlist");
 app.use("/wishlist", wishlistRouter);
+
+
+const publicListRouter = require("./routes/publicLists");
+app.use("/publicLists", auth, publicListRouter);
+
 
 /* ---------------- Errors ---------------- */
 app.use((req, res) => {
@@ -111,7 +117,7 @@ const start = async () => {
   try {
     await require("./db/connect")(process.env.MONGO_URI);
     app.listen(port, () =>
-      console.log(`Server is listening on port ${port}...`),
+      console.log(`Server is listening on port ${port} :3`),
     );
   } catch (error) {
     console.log(error);

@@ -1,0 +1,21 @@
+<%- include("partials/head.ejs") %>
+
+<%- include("partials/header.ejs") %>
+    
+<% if (Lists && Lists.length) { %>
+	<% Lists.forEach((list) => { %>
+
+            <a class="button" href="/wishlist/share/<%=list.name%>/<%=list.id%>"><%=list.name%>'s Wishlist</a>
+
+	<% }) %>
+<% } else{ %>  
+   
+      <p class="index">No lists publicly available at this time.</p>
+    
+<% } %>
+    
+
+
+
+</div>
+<%- include("partials/footer.ejs") %>

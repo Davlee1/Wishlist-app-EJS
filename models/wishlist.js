@@ -10,7 +10,8 @@ const WishlistSchema = new mongoose.Schema(
     imageURL: {
       type: String,
       required: false,
-      maxlength: 100,
+      
+      
     },
     link: {
       type: String,
@@ -18,13 +19,14 @@ const WishlistSchema = new mongoose.Schema(
     },
     description: {
       type: String,
+      maxlength: 50,
       required: false,
     },
     //1 = most wanted, 5 = least important
     priority: {
       type: Number,
       enum: [1, 2, 3, 4, 5],
-      default: "5",
+      default: "3",
       
     },
     createdBy: {
