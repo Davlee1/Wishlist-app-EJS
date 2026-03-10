@@ -92,10 +92,10 @@ app.use("/secretWord", auth, secretWordRouter);
 const wishlistRouter = require("./routes/wishlist");
 app.use("/wishlist", wishlistRouter);
 
-/* 
+
 const publicListRouter = require("./routes/publicLists");
 app.use("/publicLists", auth, publicListRouter);
-*/
+
 
 /* ---------------- Errors ---------------- */
 app.use((req, res) => {

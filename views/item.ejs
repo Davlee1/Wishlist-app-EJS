@@ -18,8 +18,10 @@
                     
 
                     
+                        <!--
                         <label class="form-label">imageURL:</label>
                         <input class="form-input" name="imageURL" value="<%= item ? item.imageURL : '' %>" />
+                        -->
                     
 
                 
@@ -33,7 +35,7 @@
                     
 
                     
-                        <label class="form-label">priority:</label>
+                        <label class="form-label">wanted:</label>
                         <select class="form-input" name="priority">
                             <option value="1" <%=item && item.priority==='1' ? 'selected' : '' %>>1</option>
                             <option value="2" <%=item && item.priority==='2' ? 'selected' : '' %>>2</option>
@@ -42,7 +44,7 @@
                             <option value="5" <%=item && item.priority==='5' ? 'selected' : '' %>>5</option>
                         </select>
                     </div>
-                    <p>(for Priority, 1 = most wanted, 5 = least important)</p>
+                    <p>(for Wanted, 5 = most wanted, 1 = least wanted)</p>
 
 
                     <div class="row">

@@ -11,6 +11,11 @@ html {
   height: 100%;
 }
 
+.title{
+  border-bottom: 3px solid hsla(254, 46%, 10%, 50%);
+  padding-bottom: 10px;
+}
+
 .footer {
   position: fixed;
   bottom: 0%;
@@ -34,8 +39,8 @@ html {
   background: hsl(254, 100%, 88%);
   color: hsl(254 45% 11%);
   border-radius: 10px;
-  padding: 10px;
-  margin: 10px auto 10px;
+  padding: 30px 10px 30px;
+  margin: 20px auto 20px;
   text-decoration: none;
   width: 30%;
 }
@@ -78,7 +83,7 @@ html {
   color: hsl(254 45% 11%);
   border-radius: 10px;
   padding: 10px;
-  margin: 5px;
+  margin: 10px 5px 10px;
   text-decoration: none;
   border: none;
 }
@@ -164,11 +169,9 @@ option {
   border-radius: 10px;
   padding: 10px;
   margin: 10px;
+  text-align: left;
 }
-td {
-  padding: 10px;
-  margin: 10px;
-}
+
 
 .image {
   width: 50px;
@@ -192,11 +195,13 @@ td {
 }
 
 .corner-block {
-  background: hsl(254, 46%, 17%);
+  background: hsla(254, 46%, 17%, 80%);
   border-radius: 10px;
   position: fixed;
   top: 1%;
   right: 1%;
+  padding: 0px 15px 0px;
+  min-width: 10%;
 }
 
 .icon {
@@ -204,12 +209,22 @@ td {
   height: auto;
 }
 
+.star{
+    width: 15px;
+  height: auto;
+}
+
 .line {
-  border-bottom: 5px solid hsl(254, 46%, 10%);
+  border-bottom: 4px solid hsl(254, 46%, 10%);
   padding: 5px 0px 20px;
 }
 
+.center-text{
+  text-align: center;
+}
+
 .error {
+  text-align: center;
   background: hsl(351, 100%, 76%);
   color: hsl(351, 100%, 28%);
   border-style: solid;
@@ -222,6 +237,7 @@ td {
 }
 
 .info {
+  text-align: center;
   background: hsl(152, 100%, 76%);
   color: hsl(152, 100%, 28%);
   border-style: solid;

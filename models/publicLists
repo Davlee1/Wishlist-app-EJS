@@ -7,8 +7,8 @@ const publicListsSchema = new mongoose.Schema(
       required: [true, "Please provide item name"],
       maxlength: 100,
     },
-    createdBy: {
-      type: mongoose.Types.ObjectId,
+    id: {
+      type: String,
       ref: "User",
       required: [true, "Please provide user"],
     },

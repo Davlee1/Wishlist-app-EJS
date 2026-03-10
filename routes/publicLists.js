@@ -9,13 +9,13 @@ const {
 } = require("../controllers/publicLists.js");
 
 
-//GET /wishlist (display all the List that have been published)
-router.get("/",auth, getAllLists);
+//GET /publicLists (display all the List that have been published)
+router.get("/", getAllLists);
 
-//POST /wishlist (Add a new list)
-router.post("/", addList);
+//POST /publicLists (Add a new list)
+router.post("/add/:user/:id", addList);
 
-//POST /wishlist/delete/:id (Delete a list)
+//POST /publicLists/delete (Delete a list)
 router.post("/delete/:id", deleteList);
 
 

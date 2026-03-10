@@ -1,9 +1,15 @@
+const PublicLists = require("../models/publicLists");
 const Wishlist = require("../models/wishlist");
 const parseVErr = require("../utils/parseValidationErrs");
 
 const getAllItems = async (req, res) => {
   const wishlist = await Wishlist.find({ createdBy: req.user._id });
-  res.render("wishlist", { wishlist });
+  const publish = await PublicLists.find({ name: req.user.name });
+  if (publish.length > 0) {
+    res.render("wishlist", { wishlist, publish });
+  } else {
+    res.render("wishlist", { wishlist, publish: null });
+  }
 };
 
 const showNewForm = (req, res) => {
@@ -78,10 +84,8 @@ const deleteItem = async (req, res, next) => {
 const shareWishlist = async (req, res, next) => {
   const wishlist = await Wishlist.find({ createdBy: req.params.id });
   const name = req.params.name;
-  res.render("wishlistShare", { wishlist , name });
+  res.render("wishlistShare", { wishlist, name });
 };
-
-
 
 module.exports = {
   getAllItems,

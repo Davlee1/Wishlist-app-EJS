@@ -8,28 +8,38 @@ const getAllLists = async (req, res) => {
 
 const addList = async (req, res, next) => {
   try {
-    await Wishlist.create({
+    await PublicLists.create({
       ...req.body,
-      createdBy: req.user._id,
+      name: req.params.user,
+      id: req.params.id,
     });
-    req.flash("info", "item created.");
+    req.flash("info", "List published.");
     res.redirect("/wishlist");
+    
   } catch (e) {
     if (e.name === "ValidationError") {
       parseVErr(e, req);
-      return res.render("item", { item: null });
+      res.redirect("/wishlist");
     }
     next(e);
   }
 };
 
 const deleteList = async (req, res, next) => {
-  await Wishlist.findOneAndDelete({
-    _id: req.params.id,
-    createdBy: req.user._id,
+  try {
+  const UserId = req.params.id;
+  await PublicLists.findOneAndDelete({
+    id: UserId
   });
-  req.flash("info", "Item deleted.");
+  req.flash("info", "List un-published");
   res.redirect("/wishlist");
+    } catch (e) {
+    if (e.name === "ValidationError") {
+      parseVErr(e, req);
+      res.redirect("/wishlist");
+    }
+    next(e);
+  }
 };
 
 module.exports = {
