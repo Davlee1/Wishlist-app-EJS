@@ -1,0 +1,61 @@
+<%- include("partials/head.ejs") %>
+    <%- include("partials/header.ejs") %>
+
+        <h2>
+            <%= item ? "Edit Item" : "Add Item" %>
+        </h2>
+
+        
+
+        <form method="POST" action="<%= item ? '/wishlist/update/' + item._id : '/wishlist' %>">
+              
+                <div class="form-grid">
+                    <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+
+                    
+                        <label class="form-label">Item:</label>
+                        <input class="form-input" name="name" value="<%= item ? item.name : '' %>" />
+                    
+
+                    
+                        <!--
+                        <label class="form-label">imageURL:</label>
+                        <input class="form-input" name="imageURL" value="<%= item ? item.imageURL : '' %>" />
+                        -->
+                    
+
+                
+                        <label class="form-label">link:</label>
+                        <input class="form-input" name="link" value="<%= item ? item.link : '' %>" />
+                    
+
+                    
+                        <label class="form-label">description:</label>
+                        <input class="form-input" name="description" type="text" value="<%= item ? item.description : '' %>" />
+                    
+
+                    
+                        <label class="form-label">wanted:</label>
+                        <select class="form-input" name="priority">
+                            <option value="1" <%=item && item.priority==='1' ? 'selected' : '' %>>1</option>
+                            <option value="2" <%=item && item.priority==='2' ? 'selected' : '' %>>2</option>
+                            <option value="3" <%=item && item.priority==='3' ? 'selected' : '' %>>3</option>
+                            <option value="4" <%=item && item.priority==='4' ? 'selected' : '' %>>4</option>
+                            <option value="5" <%=item && item.priority==='5' ? 'selected' : '' %>>5</option>
+                        </select>
+                    </div>
+                    <p>(for Wanted, 5 = most wanted, 1 = least wanted)</p>
+
+
+                    <div class="row">
+                        <button class="button-action">
+                            <%= item ? "Update" : "Create" %>
+                        </button>
+
+                        <a href="/wishlist" class="button-cancel">Cancel</a>
+                    </div>
+                
+              
+        </form>
+
+        <%- include("partials/footer.ejs") %>

@@ -1,0 +1,250 @@
+@import url("https://fonts.googleapis.com/css2?family=Cal+Sans&family=Faculty+Glyphic&family=K2D:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Major+Mono+Display&display=swap");
+html {
+  background: linear-gradient(180deg, hsl(254 45% 10%), hsl(254 45% 20%));
+  color: hsl(255 51.7% 94.5%);
+  font-family: "K2D", sans-serif;
+  scroll-behavior: smooth;
+  max-width: 100%;
+  overflow-y: scroll;
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
+}
+
+.title{
+  border-bottom: 3px solid hsla(254, 46%, 10%, 50%);
+  padding-bottom: 10px;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0%;
+  right: 1%;
+}
+
+.center {
+  background: hsla(254, 46%, 25%, 70%);
+  border-radius: 10px;
+  margin: 30px auto 10px;
+  padding: 5px;
+  max-width: 60%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+/*-------Buttons-------*/
+.button {
+  font-size: medium;
+  background: hsl(254, 100%, 88%);
+  color: hsl(254 45% 11%);
+  border-radius: 10px;
+  padding: 30px 10px 30px;
+  margin: 20px auto 20px;
+  text-decoration: none;
+  width: 30%;
+}
+.button:hover {
+  background: hsl(255, 100%, 97%);
+}
+
+.button-cancel {
+  font-size: small;
+  background: hsl(346, 100%, 57%);
+  color: hsl(254 45% 11%);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 5px 10px;
+  text-decoration: none;
+  border: none;
+}
+
+.button-cancel:hover {
+  background: hsl(346, 100%, 66%);
+}
+
+.button-action {
+  font-size: small;
+  background: hsl(141, 98%, 65%);
+  color: hsl(254 45% 11%);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 5px 10px;
+  text-decoration: none;
+  border: none;
+}
+
+.button-action:hover {
+  background: hsl(117, 100%, 79%);
+}
+
+.button-edit {
+  background: hsl(39, 100%, 57%);
+  color: hsl(254 45% 11%);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 5px 10px;
+  text-decoration: none;
+  border: none;
+}
+
+.button-edit:hover {
+  background: hsl(33, 100%, 70%);
+}
+
+.button-logoff {
+  font-size: medium;
+  background: hsl(346, 100%, 57%);
+  color: hsl(254 45% 11%);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 0px 10px 10px;
+  text-decoration: none;
+  border: none;
+}
+
+.button-logoff:hover {
+  background: hsl(346, 100%, 66%);
+}
+
+.button-home {
+  font-size: medium;
+  background: hsl(254, 100%, 88%);
+  color: hsl(254 45% 11%);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 0px 10px 10px;
+  text-decoration: none;
+  border: none;
+}
+
+.button-home:hover {
+  background: hsl(255, 100%, 97%);
+}
+
+.button-home-not-logged-in {
+  font-size: medium;
+  background: hsl(254, 100%, 88%);
+  color: hsl(254 45% 11%);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 10px 0px;
+  text-decoration: none;
+  border: none;
+  position: fixed;
+  top: 1%;
+  right: 1%;
+}
+
+.button-home-not-logged-in:hover {
+  background: hsl(255, 100%, 97%);
+}
+/*-------form elements-------*/
+.form-grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 10px;
+}
+.form-label {
+  padding: 10px;
+  margin: 10px;
+  text-align: right;
+}
+
+.form-input,
+select,
+option {
+  padding: 10px;
+  margin: 18px 10px 10px;
+  width: 50%;
+  height: 10px;
+  border-radius: 10px;
+  border: none;
+}
+
+/*-------Table-------*/
+.table {
+  background: hsl(254, 40%, 70%);
+  color: hsl(254 45% 11%);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  text-align: left;
+}
+
+
+.image {
+  width: 50px;
+  height: auto;
+}
+
+/*-------Other-------*/
+
+.row {
+  /*background: hsl(117, 100%, 79%);*/
+  display: flex;
+  flex-direction: row;
+  margin: 0px auto 0px;
+  padding: 2px;
+  justify-content: center;
+  text-align: center;
+}
+
+.index {
+  padding: 0px 0px 40px;
+}
+
+.corner-block {
+  background: hsla(254, 46%, 17%, 80%);
+  border-radius: 10px;
+  position: fixed;
+  top: 1%;
+  right: 1%;
+  padding: 0px 15px 0px;
+  min-width: 10%;
+}
+
+.icon {
+  width: 25px;
+  height: auto;
+}
+
+.star{
+    width: 15px;
+  height: auto;
+}
+
+.line {
+  border-bottom: 4px solid hsl(254, 46%, 10%);
+  padding: 5px 0px 20px;
+}
+
+.center-text{
+  text-align: center;
+}
+
+.error {
+  text-align: center;
+  background: hsl(351, 100%, 76%);
+  color: hsl(351, 100%, 28%);
+  border-style: solid;
+  border-color: hsl(351, 67%, 48%);
+  border-radius: 10px;
+  margin: 10px auto 10px;
+  padding: 10px;
+  text-align: left;
+  max-width: 50%;
+}
+
+.info {
+  text-align: center;
+  background: hsl(152, 100%, 76%);
+  color: hsl(152, 100%, 28%);
+  border-style: solid;
+  border-color: hsl(152, 67%, 48%);
+  border-radius: 10px;
+  margin: 10px auto 10px;
+  padding: 10px;
+  text-align: left;
+  max-width: 50%;
+}

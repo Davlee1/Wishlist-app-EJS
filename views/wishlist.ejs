@@ -1,0 +1,85 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/header.ejs") %>
+
+<h2><%= user.name %>'s Wishlist</h2>
+
+<div class="row">
+<a href="/wishlist/new">
+	<button class="button-edit" type="button">Add Item</button>
+</a>
+
+
+<% if (publish === null) { %>
+		<form method="POST" action="/publicLists/add/<%= user.name %>/<%= user._id %>">
+			<input type="hidden" name="_csrf" value="<%= _csrf %>" />
+			<button class="button-action">Publish List <%= publish %></button>
+		</form>
+   <% } else{ %>  
+
+		<form method="POST" action="/publicLists/delete/<%= user._id %>">
+			<input type="hidden" name="_csrf" value="<%= _csrf %>" />
+			<button class="button-cancel">Un-Publish List</button>
+		</form>
+    
+<% } %>
+
+
+</div>
+
+<table class="table">
+	<tr>
+		<th>Name</th>
+        <!--<th>Image</th>-->
+		<!--<th>Link</th>-->
+		<th>Description</th>
+        <th class="center-text">Wanted</th>
+		<th colspan="2"></th>
+	</tr>
+
+	<% if (wishlist && wishlist.length) { %>
+		<% wishlist.forEach((item) => { %>
+			<tr>
+				
+				<!--
+				<% if(item.imageURL){ %>
+   				<td><img class="image" src="<%=item.imageURL%>" alt="n/a" ></td>
+ 				<% } else{ %>  
+   				<td><img class="image" src="img/mystery.png" alt="n/a" ></td>
+				<% } %>-->
+				
+				<% if(item.link){ %>
+   				<td><a href="<%= item.link %>"><%= item.name %></a></td>
+ 				<% } else{ %>  
+   				<td><%= item.name %></td>
+				<% } %>
+                
+                <td><%= item.description %></td>
+
+				
+				<div class="row"><td class="center-text">
+
+				<% for (let i = 1; i <= 5; i++) { %> 
+  					<%if(i <= item.priority){ %> 
+						<img class="star" src="/img/star.png" alt="star" >
+					<% }else{ %> 
+						<img class="star" src="/img/emptyStar.png" alt="empty star" >
+					<%} %>
+				<%} %>
+				</div></td>
+				<td>
+					<a href="/wishlist/edit/<%= item._id %>">
+						<button class="button-edit" type="button">Edit</button>
+					</a>
+				</td>
+				<td>
+					<form method="POST" action="/wishlist/delete/<%= item._id %>" style="display:inline;">
+						<input type="hidden" name="_csrf" value="<%= _csrf %>" />
+						<button class="button-cancel">Delete</button>
+					</form>
+				</td>
+			</tr>
+		<% }) %>
+	<% } %>
+</table>
+
+<%- include("partials/footer.ejs") %>
