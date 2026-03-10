@@ -1,13 +1,22 @@
 <%- include("partials/head.ejs") %>
+
 <%- include("partials/header.ejs") %>
+
 <% if (user) { %>
-    <a href="/wishlist">View My Wishlist</a>
-    <br />
-    <a href="/secretWord">Click this link to view/change the secret word.</a>
-    <br />
+    <a class="button" href="/wishlist">My Wishlist</a>
+
+    <a class="button" href="/wishlist/share/<%= user.name %>/<%= user._id %>">My Wishlist Public View</a>
+    
+    <a class="button" href="/secretWord">Secret Word</a>
+    
 <% } else { %>
-    <a href="/sessions/logon">Click this link to logon.</a>
-    <br />
-    <a href="/sessions/register">Click this link to register.</a>
+    <a class="button" href="/sessions/logon">Logon</a>
+    
+    <a class="button" href="/sessions/register">Register</a>
+
+    
 <% } %>
+
+<div class="index"></div>
+</div>
 <%- include("partials/footer.ejs") %>

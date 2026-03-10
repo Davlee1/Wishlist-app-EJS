@@ -77,8 +77,11 @@ const deleteItem = async (req, res, next) => {
 
 const shareWishlist = async (req, res, next) => {
   const wishlist = await Wishlist.find({ createdBy: req.params.id });
-  res.render("wishlistShare", { wishlist });
+  const name = req.params.name;
+  res.render("wishlistShare", { wishlist , name });
 };
+
+
 
 module.exports = {
   getAllItems,

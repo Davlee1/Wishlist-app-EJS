@@ -2,18 +2,19 @@
 <%- include("partials/header.ejs") %>
 
 <h2>WishList</h2>
+<p>(for Priority, 1 = most wanted, 5 = least important)</p>
 
 <a href="/wishlist/new">
-	<button type="button">Add Item</button>
+	<button class="button-edit" type="button">Add Item</button>
 </a>
 
-<table border="1">
+<table class="table">
 	<tr>
 		<th>Name</th>
         <th>Image</th>
 		<th>Link</th>
 		<th>Description</th>
-        <th>Priority (1 = most wanted, 5 = least important)</th>
+        <th>Priority</th>
 		<th colspan="2"></th>
 	</tr>
 
@@ -21,19 +22,23 @@
 		<% wishlist.forEach((item) => { %>
 			<tr>
 				<td><%= item.name %></td>
-				<td><%= item.imageURL %></td>
-                <td><%= item.link %></td>
+				<% if(item.imageURL){ %>
+   				<td><img class="image" src="<%= item.imageURL %>" alt="n/a" ></td>
+ 				<% } else{ %>  
+   				<td><img class="image" src="img/mystery.png" alt="n/a" ></td>
+				<% } %>
+                <td><a href="<%= item.link %>">link</a></td>
                 <td><%= item.description %></td>
 				<td><%= item.priority %></td>
 				<td>
 					<a href="/wishlist/edit/<%= item._id %>">
-						<button type="button">Edit</button>
+						<button class="button-edit" type="button">Edit</button>
 					</a>
 				</td>
 				<td>
 					<form method="POST" action="/wishlist/delete/<%= item._id %>" style="display:inline;">
 						<input type="hidden" name="_csrf" value="<%= _csrf %>" />
-						<button>Delete</button>
+						<button class="button-cancel">Delete</button>
 					</form>
 				</td>
 			</tr>

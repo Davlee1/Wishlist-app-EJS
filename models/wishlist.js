@@ -11,6 +11,7 @@ const WishlistSchema = new mongoose.Schema(
       type: String,
       required: false,
       maxlength: 100,
+      
     },
     link: {
       type: String,
@@ -18,6 +19,7 @@ const WishlistSchema = new mongoose.Schema(
     },
     description: {
       type: String,
+      maxlength: 50,
       required: false,
     },
     //1 = most wanted, 5 = least important

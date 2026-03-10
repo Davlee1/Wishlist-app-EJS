@@ -1,22 +1,37 @@
-<h1>The Wishlist EJS Application</h1>
+<div class="center">
+<h1 class="title">The Wishlist EJS Application</h1>
+
 <% if (user) { %>
-   <p>User <%= user.name %> is logged on.</p>
-   <form method="POST" action="/sessions/logoff">
-   <button>Logoff</button>
-   </form>
+   <div class="corner-block">
+    <p>Hello <%= user.name %>!</p>
+      <form method="POST" action="/sessions/logoff">
+        <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+          <div class="row">
+            <a class="button-home" href="/">Home</a>
+            <button class="button-logoff">Logoff</button>
+          </div>
+      </form>
+    </div>
+   
+<% } else{ %>  
+   
+      <a class="button-home-not-logged-in" href="/">Home</a>
+    
 <% } %>
+
+<div>
 <% if (errors) {
     errors.forEach((err) => { %>
-      <div>
+      <div class="error">
         Error: <%= err %>
       </div>
     <% })
   } %>
   <% if (info) {
     info.forEach((msg) => { %>
-      <div>
+      <div class="info">
         Info: <%= msg %>
       </div>
     <% })
   } %>
-<hr />
+</div>
