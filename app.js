@@ -12,7 +12,10 @@ const path = require("path");
 
 const csrf = require("host-csrf");
 
-const url = process.env.MONGO_URI;
+let mongoURL = process.env.MONGO_URI;
+if (process.env.NODE_ENV == "test") {
+  mongoURL = process.env.MONGO_URI_TEST;
+}
 const app = express();
 
 /* ---------------- Security Middleware ---------------- */
@@ -32,7 +35,7 @@ app.use(cookieParser(process.env.SESSION_SECRET));
 
 /*------------------Session Store------------------*/
 const store = new MongoDBStore({
-  uri: url,
+  uri: mongoURL,
   collection: "mySessions",
 });
 store.on("error", console.log);
@@ -75,6 +78,16 @@ app.use((req, res, next) => {
 /*------------------Static Files------------------*/
 app.use(express.static(path.join(__dirname, "public")));
 
+/*------------------Chai middleware------------------*/
+app.use((req, res, next) => {
+  if (req.path == "/multiply") {
+    res.set("Content-Type", "application/json");
+  } else {
+    res.set("Content-Type", "text/html");
+  }
+  next();
+});
+
 /* ---------------- Routes + EJS ---------------- */
 app.set("view engine", "ejs");
 app.get("/", (req, res) => {
@@ -96,6 +109,16 @@ app.use("/wishlist", wishlistRouter);
 const publicListRouter = require("./routes/publicLists");
 app.use("/publicLists", auth, publicListRouter);
 
+/* ---------------- Testing API ---------------- */
+app.get("/multiply", (req, res) => {
+  const result = req.query.first * req.query.second;
+  if (result.isNaN) {
+    result = "NaN";
+  } else if (result == null) {
+    result = "null";
+  }
+  res.json({ result: result });
+});
 
 /* ---------------- Errors ---------------- */
 app.use((req, res) => {
@@ -115,7 +138,7 @@ const port = process.env.PORT || 3000;
 
 const start = async () => {
   try {
-    await require("./db/connect")(process.env.MONGO_URI);
+    await require("./db/connect")(mongoURL);
     app.listen(port, () =>
       console.log(`Server is listening on port ${port} :3`),
     );
@@ -125,3 +148,5 @@ const start = async () => {
 };
 
 start();
+
+module.exports = { app };
