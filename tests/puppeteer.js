@@ -88,6 +88,7 @@ describe("wishlist-ejs puppeteer test", function () {
     });
 
     it("sends the Item", async () => {
+      const { expect } = await import("chai");
       await this.name.type("testItem");
       await this.description.type("testDescription");
       await this.priority.type(5);
@@ -96,7 +97,6 @@ describe("wishlist-ejs puppeteer test", function () {
       await page.waitForSelector(`p ::-p-text(item created.)`);
       const items = await Wishlist.find({ createdBy: testUser._id });
       expect(items.length).to.equal(21);
-
       const copyr = await page.waitForSelector("p ::-p-text(copyright)");
       const copyrText = await copyr.evaluate((el) => el.textContent);
       console.log("copyright text: ", copyrText);

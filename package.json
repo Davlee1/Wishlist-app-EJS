@@ -38,7 +38,7 @@
     "test": "NODE_ENV=test mocha tests/*.js --timeout 5000 --exit"
   },
   "devDependencies": {
-    "@faker-js/faker": "^10.3.0",
+    "@faker-js/faker": "^8.4.1",
     "chai": "^6.2.2",
     "chai-http": "^5.1.2",
     "factory-bot": "^6.3.1",

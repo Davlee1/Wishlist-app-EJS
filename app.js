@@ -111,8 +111,8 @@ app.use("/publicLists", auth, publicListRouter);
 
 /* ---------------- Testing API ---------------- */
 app.get("/multiply", (req, res) => {
-  const result = req.query.first * req.query.second;
-  if (result.isNaN) {
+  let result = req.query.first * req.query.second;
+  if (isNaN(result)) {
     result = "NaN";
   } else if (result == null) {
     result = "null";
