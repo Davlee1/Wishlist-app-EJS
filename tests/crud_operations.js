@@ -1,6 +1,8 @@
 const Wishlist = require("../models/wishlist");
 const faker = require("@faker-js/faker").fakerEN_US;
 const { factory, seed_db, testUserPassword } = require("../utils/seed_db");
+const { app } = require("../app");
+const get_chai = require("../utils/get_chai");
 
 describe("tests for crud operations", function () {
   before(async () => {
@@ -37,29 +39,33 @@ describe("tests for crud operations", function () {
   });
 
   it("get wishlist", async () => {
+    const { expect, request } = await get_chai();
     const req = request
       .execute(app)
       .get("/wishlist")
-      .set("Cookie", this.csrfCookie)
-      .set("content-type", "application/x-www-form-urlencoded");
+      .set("Cookie", this.sessionCookie)
+      .send();
+    const res = await req;
     const pageParts = res.text.split("<tr>");
-    expect(pageParts).to.equal(20);
+    expect(pageParts.length).to.equal(21);
   });
 
   it("Add a wishlist entry", async () => {
-    const dataToPost = {
-      name: () => faker.commerce.productName(),
-      description: () => faker.commerce.productDescription(),
-      priority: () => [Math.floor(5 * Math.random())],
-      _csrf: this.csrfToken,
-    };
-    const req = request
-      .execute(app)
-      .post("/wishlist")
-      .set("Cookie", this.csrfCookie)
-      .set("content-type", "application/x-www-form-urlencoded")
-      .send(dataToPost);
-    const list = await Wishlist.find({ createdBy: this.test_user._id });
-    expect(list.length).to.equal(21);
+const { expect, request } = await get_chai();
+const dataToPost = {
+  name: faker.commerce.productName(),
+  description: faker.commerce.productDescription(),
+  priority: Math.floor(5 * Math.random()),
+  _csrf: this.csrfToken,
+};
+const req = request
+  .execute(app)
+  .post("/wishlist")
+  .set("Cookie", this.csrfCookie + ";" + this.sessionCookie)
+  .set("content-type", "application/x-www-form-urlencoded")
+  .send(dataToPost);
+const res = await req;
+const list = await Wishlist.find({ createdBy: this.test_user._id });
+expect(list.length).to.equal(21);
   });
 });

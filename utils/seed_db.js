@@ -11,7 +11,7 @@ factory.setAdapter(factoryAdapter);
 factory.define("wishlist", wishlist, {
   name: () => faker.commerce.productName(),
   description: () => faker.commerce.productDescription(),
-  priority: () => [Math.floor(5 * Math.random())],
+  priority: () => Math.floor(5 * Math.random()),
 });
 factory.define("user", User, {
   name: () => faker.person.fullName(),

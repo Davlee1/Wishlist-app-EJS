@@ -1,8 +1,7 @@
 const puppeteer = require("puppeteer");
 require("../app");
-const { seed_db, testUserPassword } = require("../util/seed_db");
+const { seed_db, testUserPassword } = require("../utils/seed_db");
 const Wishlist = require("../models/wishlist");
-const { expect } = await import("chai");
 
 let testUser = null;
 
@@ -60,19 +59,23 @@ describe("wishlist-ejs puppeteer test", function () {
   describe("puppeteer job operations", function () {
     this.timeout(20000);
     it("tests getting list", async () => {
+      const { expect } = await import("chai");
+      const wishlistLink = await page.waitForSelector(
+        "a ::-p-text(My Wishlist)",
+      );
+      await wishlistLink.click();
       await page.waitForNavigation();
-      await page.waitForSelector("a ::-p-text(My Wishlist)");
-      await page.waitForNavigation();
-      const list = page.content().split("<tr>");
+      const content = await page.content();
+      const list = content.split("<tr>");
       expect(list.length).to.equal(21);
     });
 
     it("brings up add item form", async () => {
+      const { expect } = await import("chai");
+      const addLink = await page.waitForSelector("a ::-p-text(Add Item)");
+      await addLink.click();
       await page.waitForNavigation();
-      await page.waitForSelector("a ::-p-text(Add Item)");
-      await page.waitForNavigation();
-      const list = page.content().split("<tr>");
-      expect(list.length).to.equal(21);
+      await page.waitForSelector('input[name="name"]');
     });
 
     it("resolves all the fields", async () => {
@@ -85,14 +88,15 @@ describe("wishlist-ejs puppeteer test", function () {
     });
 
     it("sends the Item", async () => {
-      
       await this.name.type("testItem");
       await this.description.type("testDescription");
       await this.priority.type(5);
       await this.submit.click();
       await page.waitForNavigation();
       await page.waitForSelector(`p ::-p-text(item created.)`);
-      
+      const items = await Wishlist.find({ createdBy: testUser._id });
+      expect(items.length).to.equal(21);
+
       const copyr = await page.waitForSelector("p ::-p-text(copyright)");
       const copyrText = await copyr.evaluate((el) => el.textContent);
       console.log("copyright text: ", copyrText);

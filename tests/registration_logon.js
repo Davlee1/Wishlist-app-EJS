@@ -49,7 +49,7 @@ describe("tests for registration and logon", function () {
     const res = await req;
     expect(res).to.have.status(200);
     expect(res).to.have.property("text");
-    expect(res.text).to.include("Jobs List");
+    expect(res.text).to.include("Wishlist");
     newUser = await User.findOne({ email: this.user.email });
     expect(newUser).to.not.be.null;
   });
