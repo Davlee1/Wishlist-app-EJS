@@ -67,7 +67,13 @@ app.use(require("connect-flash")());
 app.use(require("./middleware/storeLocals"));
 
 /*------------------CSRF------------------*/
-const csrfMiddleware = csrf.csrf();
+const csrfMiddleware = csrf.csrf({
+  cookie: true,
+  cookieOptions: {
+    httpOnly: true,
+    sameSite: 'strict'
+  }
+});
 
 app.use(csrfMiddleware);
 app.use((req, res, next) => {
