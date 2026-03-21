@@ -91,24 +91,19 @@ describe("tests for registration and logon", function () {
     expect(res.text).to.include(this.user.name);
   });
 
-  it("should logout", async () => {
-    const dataToPost = {
-      _csrf: this.csrfToken,
-    };
-    const { expect, request } = await get_chai();
-    const req = request
-      .execute(app)
-      .post("/sessions/logoff")
-      .set("Cookie", this.csrfCookie)
-      .set("content-type", "application/x-www-form-urlencoded")
-      .send(dataToPost);
-    const res = await req;
-    expect(res).to.have.status(302);
-    expect(res.headers.location).to.equal("/");
-    const cookies = res.headers["set-cookie"];
-    this.sessionCookie = cookies.find((element) =>
-      element.startsWith("connect.sid"),
-    );
-    expect(this.sessionCookie).to.not.be.undefined;
-  });
+it("should logout", async () => {
+  const dataToPost = {
+    _csrf: this.csrfToken,
+  };
+  const { expect, request } = await get_chai();
+  const req = request
+    .execute(app)
+    .post("/sessions/logoff")
+    .set("Cookie", this.csrfCookie + ";" + this.sessionCookie)
+    .set("content-type", "application/x-www-form-urlencoded")
+    .send(dataToPost);
+  const res = await req;
+  expect(res).to.have.status(200);
+  expect(res.text).to.include("Logon");
+});
 });

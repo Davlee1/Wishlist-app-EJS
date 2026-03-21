@@ -47,15 +47,15 @@ describe("tests for crud operations", function () {
       .send();
     const res = await req;
     const pageParts = res.text.split("<tr>");
-    expect(pageParts.length).to.equal(21);
+    expect(pageParts.length).to.equal(22);
   });
 
   it("Add a wishlist entry", async () => {
 const { expect, request } = await get_chai();
 const dataToPost = {
   name: faker.commerce.productName(),
-  description: faker.commerce.productDescription(),
-  priority: Math.floor(5 * Math.random()),
+  description: faker.commerce.productDescription().substring(0, 50),
+  priority: Math.floor(5 * Math.random()) + 1,
   _csrf: this.csrfToken,
 };
 const req = request
