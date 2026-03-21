@@ -10,8 +10,8 @@ const factoryAdapter = new FactoryBot.MongooseAdapter();
 factory.setAdapter(factoryAdapter);
 factory.define("wishlist", wishlist, {
   name: () => faker.commerce.productName(),
-  description: () => faker.commerce.productDescription(),
-  priority: () => Math.floor(5 * Math.random()),
+  description: () => faker.commerce.productDescription().substring(0, 50),
+  priority: () => Math.floor(5 * Math.random()) + 1,
 });
 factory.define("user", User, {
   name: () => faker.person.fullName(),

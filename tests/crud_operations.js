@@ -8,7 +8,7 @@ describe("tests for crud operations", function () {
   before(async () => {
     const { expect, request } = await get_chai();
     this.test_user = await seed_db();
-    let req = request.execute(app).get("/session/logon").send();
+    let req = request.execute(app).get("/sessions/logon").send();
     let res = await req;
     const textNoLineEnd = res.text.replaceAll("\n", "");
     this.csrfToken = /_csrf\" value=\"(.*?)\"/.exec(textNoLineEnd)[1];
@@ -23,7 +23,7 @@ describe("tests for crud operations", function () {
     };
     req = request
       .execute(app)
-      .post("/session/logon")
+      .post("/sessions/logon")
       .set("Cookie", this.csrfCookie)
       .set("content-type", "application/x-www-form-urlencoded")
       .redirects(0)
