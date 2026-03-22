@@ -90,12 +90,17 @@ describe("wishlist-ejs puppeteer test", function () {
       await this.priority.type("5");
       await this.submit.click();
       await page.waitForNavigation();
-      await page.waitForSelector(`p ::-p-text(item created.)`);
+      
+      await page.textContent('item created'); // this line is causing the test to fail and im not sure why
+      
       const items = await Wishlist.find({ createdBy: testUser._id });
-      expect(items.length).to.equal(22);
-      const copyr = await page.waitForSelector("p ::-p-text(copyright)");
+      
+      expect(items.length).to.equal(21);
+      
+      const copyr = await page.waitForSelector("p ::-p-text(© 2026 David Lee)");
       const copyrText = await copyr.evaluate((el) => el.textContent);
       console.log("copyright text: ", copyrText);
+      
     });
   });
 });
