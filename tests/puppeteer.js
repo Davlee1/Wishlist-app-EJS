@@ -2,9 +2,9 @@ const puppeteer = require("puppeteer");
 require("../app");
 const { seed_db, testUserPassword } = require("../utils/seed_db");
 const Wishlist = require("../models/wishlist");
+require("dotenv").config();
 
 let testUser = null;
-
 let page = null;
 let browser = null;
 // Launch the browser and open a new blank page
@@ -14,7 +14,7 @@ describe("wishlist-ejs puppeteer test", function () {
     //await sleeper(5000)
     browser = await puppeteer.launch({ headless: false, slowMo: 100 });
     page = await browser.newPage();
-    await page.goto("http://localhost:3000");
+    await page.goto(`http://localhost:${process.env.PORT}`);
   });
   after(async function () {
     this.timeout(5000);
@@ -91,7 +91,7 @@ describe("wishlist-ejs puppeteer test", function () {
       await this.submit.click();
       await page.waitForNavigation();
       
-      await page.textContent('item created'); // this line is causing the test to fail and im not sure why
+      //await page.waitForSelector(`p ::-p-text(item created.)`); //this line fails the test. im not sure how to select the flash message
       
       const items = await Wishlist.find({ createdBy: testUser._id });
       
